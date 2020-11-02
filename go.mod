@@ -1,4 +1,4 @@
-module MoveQueue
+module github.com/akshaykhairmode/redis-mqueue
 
 go 1.15
 

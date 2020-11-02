@@ -21,6 +21,8 @@ var howMap = map[string]how{
 	"RTR": {"RPOP", "RPUSH"},
 }
 
+var pushCounter int = 0
+
 func main() {
 
 	flag.StringVar(&inputs.host, "host", "", "redis host")
@@ -38,6 +40,11 @@ func main() {
 	}
 
 	defer log.Println("Exiting")
+
+	if _, ok := howMap[inputs.how]; !ok {
+		log.Println("how option is invalid")
+		return
+	}
 
 	log.Printf("Got Inputs : %+v", inputs)
 
@@ -61,10 +68,9 @@ func main() {
 		return
 	}
 
-	pushCounter := 0
-
 	for i := 0; i < qLength; i++ {
 		if err := process(conn, &pushCounter); err != nil {
+			log.Printf("Processed %d / %d", pushCounter, qLength)
 			return
 		}
 	}
