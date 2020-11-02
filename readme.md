@@ -19,6 +19,12 @@ RTL = Right to Left
 LTL = Left to Left  
 RTR = Right to Right
 
-Example : `go run main.go -host="127.0.0.1" -port="6379" -source="source" -destination="destination" -how=RTR`
+**To install**, simply use `go get github.com/akshaykhairmode/redis-mqueue` 
+
+This will install go binary in your $GOBIN (If its set) or at ~/go/bin/redis-mqueue 
+
+Then you can run the below command to execute
+
+Example : `$GOBIN/redis-mqueue -host="127.0.0.1" -port="6379" -source="source" -destination="destination" -how=RTR`
 
 Note : Will push the number of items based on the length of the queue when the tool is run.
