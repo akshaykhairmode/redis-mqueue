@@ -6,11 +6,11 @@ Uses github.com/gomodule/redigo/redis for redis operations.
 
 There are 5 mandatory options, 
 
- - host
- - port
- - source
- - destination
- - how
+ - h (redis host)
+ - p (redis port)
+ - s (source queue name)
+ - d (destination queue name)
+ - t (how)
 
 Values for how
 
@@ -25,6 +25,6 @@ This will install go binary in your $GOBIN (If its set) or at ~/go/bin/redis-mqu
 
 Then you can run the below command to execute
 
-Example : `$GOBIN/redis-mqueue -host="127.0.0.1" -port="6379" -source="source" -destination="destination" -how=RTR`
+Example : `$GOBIN/redis-mqueue -h="127.0.0.1" -p="6379" -s="source" -d="destination" -t=RTR`
 
-Note : Will push the number of items based on the length of the queue when the tool is run.
+Note : Will push the number of items based on the length of the queue when the tool is run. If want to run as daemon use --daemon option.
