@@ -16,6 +16,7 @@ import (
 type input struct {
 	host, port, source, destination, how string
 	daemonMode                           bool
+	limit                                int
 }
 
 type how struct{ pop, push string }
@@ -115,6 +116,7 @@ func (inputs *input) validateInputs() error {
 //getInputs get the inputs passed from shell
 func (inputs *input) getInputs() error {
 
+	flag.IntVar(&inputs.limit, "l", 0, "limit for queue length")
 	flag.StringVar(&inputs.host, "h", "", "redis host")
 	flag.StringVar(&inputs.port, "p", "", "redis port")
 	flag.StringVar(&inputs.source, "s", "", "source queue name")
@@ -155,6 +157,10 @@ func (c *connection) createRedisConnection(inputs input) error {
 
 //getQueueLength returns the source queue length
 func (c *connection) getQueueLength(inputs input) (int, error) {
+
+	if inputs.limit > 0 {
+		return inputs.limit, nil
+	}
 
 	qLength, err := redis.Int(conn.redis.Do("LLEN", inputs.source))
 
